@@ -1,0 +1,18 @@
+-r requirements-build.txt
+
+# pypi management
+pip-licenses
+pipdeptree
+pipreqs
+pipreqsnb
+
+# formatter and linter
+black
+isort
+pylint
+yamllint
+
+# profiler
+pyinstrument
+pysnooper
+viztracer

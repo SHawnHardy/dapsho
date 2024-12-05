@@ -1,0 +1,8 @@
+-r requirements.txt
+
+build
+pre-commit
+pytest
+setuptools
+setuptools_scm
+wheel
