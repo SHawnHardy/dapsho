@@ -1,0 +1,27 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+  - repo: local
+    hooks:
+      - id: isort
+        name: isort
+        language: system
+        entry: "isort"
+        types_or: ["cython", "pyi", "python"]
+        args: ["--profile", "black"]
+  - repo: https://github.com/psf/black
+    rev: 24.10.0
+    hooks:
+      - id: black
+  - repo: local
+    hooks:
+      - id: pytest
+        name: pytest
+        language: system
+        entry: "python -m pytest test"
+        types: ["python"]
+        pass_filenames: false
