@@ -1,4 +1,5 @@
 repos:
+  # pre-commit
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
     hooks:
@@ -24,4 +25,14 @@ repos:
         language: system
         entry: "python -m pytest test"
         types: ["python"]
+        pass_filenames: false
+  # post-commit
+  - repo: local
+    hooks:
+      - id: update-version
+        name: update version
+        language: system
+        entry: python -m setuptools_scm --force-write-version-files
+        stages: ["post-commit"]
+        always_run: true # when the stage is post-commit, it must be true.
         pass_filenames: false
