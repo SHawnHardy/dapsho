@@ -1,5 +1,6 @@
+default_install_hook_types: ["pre-commit", "post-commit", "pre-push"]
+default_stages: ["pre-commit", "pre-push", "manual"]
 repos:
-  # pre-commit
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
     hooks:
@@ -18,21 +19,27 @@ repos:
     rev: 24.10.0
     hooks:
       - id: black
-  - repo: local
-    hooks:
-      - id: pytest
-        name: pytest
-        language: system
-        entry: "python -m pytest test"
-        types: ["python"]
-        pass_filenames: false
+  ################
   # post-commit
+  ################
   - repo: local
     hooks:
       - id: update-version
         name: update version
         language: system
         entry: python -m setuptools_scm --force-write-version-files
-        stages: ["post-commit"]
+        stages: ["post-commit", "manual"]
         always_run: true # when the stage is post-commit, it must be true.
+        pass_filenames: false
+  ################
+  # pre-push
+  ################
+  - repo: local
+    hooks:
+      - id: pytest
+        name: pytest
+        language: system
+        entry: "python -m pytest test"
+        stages: ["pre-push", "manual"]
+        types: ["python"]
         pass_filenames: false
