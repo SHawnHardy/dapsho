@@ -43,3 +43,12 @@ repos:
         stages: ["pre-push", "manual"]
         types: ["python"]
         pass_filenames: false
+  - repo: local
+    hooks:
+      - id: update-py-packages-info
+        name: update python packages info to THIRDPARTY/PY_PACKAGES.md
+        language: system
+        entry: ./.script_for_dev/update_py_packages_info.sh
+        stages: ["pre-push", "manual"]
+        always_run: true
+        pass_filenames: false
