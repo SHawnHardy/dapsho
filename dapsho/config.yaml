@@ -10,3 +10,6 @@
 # ignore_home_config: false                  #####
 # ignore_project_config: false               #####
 ##### !!! ENV ONLY CONFIG, DO NOT MODIFY !!! #####
+
+# [util]
+hash_method: sha256
