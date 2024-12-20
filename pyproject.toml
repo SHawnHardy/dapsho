@@ -19,8 +19,14 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
 ]
 
+[tool.setuptools]
+include-package-data = true
+
 [tool.setuptools.packages.find]
 include = ["dapsho"]
+
+[tool.setuptools.package-data]
+dapsho = ["config.yaml"]
 
 [tool.setuptools_scm]
 version_file = "dapsho/_version.py"

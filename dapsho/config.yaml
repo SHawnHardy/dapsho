@@ -1,0 +1,12 @@
+---
+# Default configuration for dapsho
+#
+# Using environment variables to override settings can only modify top-level items,
+#  and the name can only contain lowercase letters and underscores.
+
+# [config]
+## [config.initial]
+##### !!! ENV ONLY CONFIG, DO NOT MODIFY !!! #####
+# ignore_home_config: false                  #####
+# ignore_project_config: false               #####
+##### !!! ENV ONLY CONFIG, DO NOT MODIFY !!! #####
