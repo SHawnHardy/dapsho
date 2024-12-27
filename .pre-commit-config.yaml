@@ -19,6 +19,14 @@ repos:
     rev: 24.10.0
     hooks:
       - id: black
+  - repo: local
+    hooks:
+      - id: pylint
+        name: pylint
+        language: system
+        entry: pylint
+        types: ["python"]
+        args: ["--rcfile", ".pylintrc.toml", "-rn", "-sn"]
   ################
   # post-commit
   ################
