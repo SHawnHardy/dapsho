@@ -28,6 +28,7 @@ try:
 except ImportError:
     from yaml import SafeDumper, SafeLoader
 
+from .hash import myhash
 
 _KtT = TypeVar("_KtT")
 _VtT_co = TypeVar("_VtT_co", covariant=True)
@@ -314,3 +315,6 @@ class StrictNestedDict(MutableMapping):
     def __repr__(self) -> str:
         cls_name = self.__class__.__name__
         return f"{cls_name}({cls_name}.load_yaml('''{self.dump_yaml()}'''))"
+
+    def get_hash(self):
+        return myhash(self.dump_yaml())

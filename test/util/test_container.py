@@ -8,6 +8,7 @@ from copy import copy
 import pytest
 
 from dapsho.util.container import StrictNestedDict
+from dapsho.util.hash import myhash
 
 
 class TestStrictNestedDict:
@@ -66,3 +67,9 @@ class TestStrictNestedDict:
     def test_repr(self):
         # pylint: disable=eval-used
         assert eval(repr(StrictNestedDict({"a": 1}))) == StrictNestedDict({"a": 1})
+
+    def test_get_hash(self):
+        d = StrictNestedDict({"a": 1, "b": 2})
+        hash_value = d.get_hash()
+        assert isinstance(hash_value, str)
+        assert hash_value == myhash(d.dump_yaml())
