@@ -4,3 +4,4 @@
 """
 
 from .datetime import *
+from .dtype import *
