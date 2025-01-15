@@ -13,3 +13,10 @@
 
 # [util]
 hash_method: sha256
+
+# [output]
+output:
+  excel:
+    reset_index: false # true | drop | false
+    index: true
+    autofilter: true
