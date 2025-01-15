@@ -10,6 +10,7 @@ import importlib
 import logging
 from collections.abc import Buffer
 from functools import wraps
+from io import IOBase
 from typing import Literal, Optional
 
 from .register import Register
@@ -17,6 +18,18 @@ from .register import Register
 logger = logging.getLogger(__name__)
 
 reg_hash = Register("hash")
+
+
+def _dcrt_read_iobase_before_hash(func):
+    @wraps(func)
+    def wrapper(data: IOBase):
+        if isinstance(data, IOBase):
+            if not data.readable():
+                raise TypeError("input data must be readable")
+            data = data.read()
+        return func(data=data)
+
+    return wrapper
 
 
 def _dcrt_encode_str_before_hash(func):
@@ -30,18 +43,21 @@ def _dcrt_encode_str_before_hash(func):
 
 
 @reg_hash
+@_dcrt_read_iobase_before_hash
 @_dcrt_encode_str_before_hash
 def md5(data) -> str:
     return hashlib.md5(data).hexdigest()
 
 
 @reg_hash
+@_dcrt_read_iobase_before_hash
 @_dcrt_encode_str_before_hash
 def sha1(data) -> str:
     return hashlib.sha1(data).hexdigest()
 
 
 @reg_hash
+@_dcrt_read_iobase_before_hash
 @_dcrt_encode_str_before_hash
 def sha256(data) -> str:
     return hashlib.sha256(data).hexdigest()
