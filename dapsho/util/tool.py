@@ -4,7 +4,11 @@
 """
 
 import threading
-from abc import ABCMeta
+from abc import ABC, ABCMeta, abstractmethod
+from io import IOBase
+from typing import Optional
+
+from .container import StrictNestedDict, StrictNestedDictLikeType
 
 
 class SingletonMeta(type):
@@ -36,3 +40,27 @@ class SingletonABCMeta(ABCMeta, SingletonMeta):
     """
     SingletonABCMeta is a metaclass that combines the functionality of ABCMeta and SingletonMeta.
     """
+
+
+class ConfigDriven(ABC):
+    DEFAULT_CONFIG: StrictNestedDict = StrictNestedDict()
+
+    @classmethod
+    @abstractmethod
+    def _build(cls, config: StrictNestedDict): ...
+
+    @classmethod
+    def _get_config(
+        cls, config: Optional[StrictNestedDictLikeType | IOBase]
+    ) -> StrictNestedDict:
+        if config is None:
+            return cls.DEFAULT_CONFIG
+        # WIP: add support for loading config from file
+        return cls.DEFAULT_CONFIG | config
+
+    @classmethod
+    def build(cls, config: Optional[StrictNestedDictLikeType] = None) -> "ConfigDriven":
+        config = cls._get_config(config)
+        instance = cls._build(config)
+        instance.config = config
+        return instance
