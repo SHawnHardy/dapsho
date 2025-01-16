@@ -6,3 +6,4 @@
 from .datetime import *
 from .dtype import *
 from .filter import *
+from .index import *
